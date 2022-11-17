@@ -16,11 +16,11 @@ Play Minesweeper in the console programmed in Java
 
 -   ✅ Recreated a simplified version of Minesweeper to be played in the console
 -   ✅ Minesweeper randomly generates 10 mines in a 10 by 10 grid
--   ⏰ User enters a command to check the location of a mine
+-   ✅ User enters a command to check the location of a mine
 -   ✅ Minesweeper displays how many mines that surround a tile between 0 and 8
--   ⏰ Minesweeper ends if a user hits a tile containing a mine and the user loses
+-   ✅ Minesweeper ends if a user hits a tile containing a mine and the user loses
 -   ⏰ Minesweeper ends if a user clears all non-mine tiles and the user wins
--   ⏰ Minesweeper renders the grid to the console after each user input
+-   ✅ Minesweeper renders the grid to the console after each user input
 
 ## Bonus
 

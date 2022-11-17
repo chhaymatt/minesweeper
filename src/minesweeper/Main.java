@@ -1,88 +1,72 @@
 package minesweeper;
 
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
 
+		System.out.println(ConsoleColours.CYAN_BOLD + "Hello! Welcome to Minesweeper!" + ConsoleColours.RESET);
 		
-		String[][] board = new String[11][11]; // Extra row/column for countin
+		// Create a Minesweeper Game(boardSize, mines)
+		int size = 11;
 		int mines = 10;
+		Game minesweeper = new Game(size, mines);
 		
-		// Fill board with unknowns
-		for (int x = 0; x < board.length; x++) {
-			
-			for (int y = 0; y < board.length; y++) {
-				board[x][y] = "?";
-			}
-			
-		}
+		Scanner scanner = new Scanner(System.in);
 		
-		displayBoard(board);
-		generateMines(board, mines);
-		displayBoard(board);
-		findNearby(board);
-		displayBoard(board);
-		
-	}
-	
-	// Display board
-	public static void displayBoard(String[][] board) {
-		for (int x = 0; x < board.length; x++) {
-			for (int y = 0; y < board.length; y++) {
-				// Add spacing between each tile and a new row when y = 0
-				if (y > 0)
-					System.out.print(" ");
-				else
-					System.out.println("");
+		while(true) {
+			System.out.println("");
+			minesweeper.updateBoard();
+			while(!minesweeper.getDone()) {
+				System.out.println("");
+				System.out.print(String.format("Enter x coordinate (%s-%s inclusive): ", 1, size));
+				int x = getIntBetweenBounds(0, size + 1, scanner);
 				
-//				// Display tile
-//				if (board[x][y].equals("?"))
-//					System.out.print("");
-//				else 
-					System.out.print(board[x][y]);
-			}
-		}
-		System.out.println("");
-	}
-	
-	// Fill board with mines
-	public static void generateMines(String[][] board, int mines) {
-		for (int i = 0; i < mines; i++) {
-			
-			// Generate a random coordinate
-			int x = (int)(10 * Math.random());
-			int y = (int)(10 * Math.random());
-			
-			//System.out.println("");
-			//System.out.println("i: "+ i +" "+ x + ", " + y);
-			
-			if (x > 0 && x <= board.length && y > 0 && y < board.length) {
-				// Add a mine only if there is no mine in that spot
-				if(board[x][y].equals("B"))
-					i--; // Generate another coordinate to place the mine
-				else
-					board[x][y] = "B";
-			}
-		}
-	}
-	
-	// Find how many mines are around a tile
-	public static void findNearby(String[][] board) {
-		for (int x = 1; x < board.length - 1; x++) {
-			for (int y = 1; y < board.length - 1; y++) {
-				if(board[x][y].equals("?")) {
-					int count = 0;
-					for (int i = x - 1; i <= x + 1; i++) {
-						for (int j = y - 1; j <= y + 1; j++) {
-							if (board[i][j].equals("B"))
-								count++;
-						}
-					}
-					board[x][y] = String.valueOf(count);
+				System.out.print(String.format("Enter y coordinate (%s-%s inclusive): ", 1, size));
+				int y = getIntBetweenBounds(0, size + 1, scanner);
+				
+				minesweeper.turn(x, y);
+				
+				if (!minesweeper.getDone()) {
+					minesweeper.revealNearby(x, y);
+					minesweeper.countNearby();
+					minesweeper.updateBoard();
 				}
-				
+			}
+			System.out.println("");
+			System.out.println("");
+			System.out.println("Want to play again?");
+			System.out.println("1: Yes");
+			System.out.println("2: No");
+			int playAgainInput = getIntBetweenBounds(0, 3, scanner);
+			if (playAgainInput == 1) {
+				minesweeper = new Game(size, mines);
+			} else {
+				System.out.println("Thank you for playing! You may close the console.");
+				break;
 			}
 		}
 	}
+	
+	public static int getIntBetweenBounds(int lower, int upper, Scanner scanner) {
+		boolean correctInput = false;
+		int output = 0;
+		while (correctInput ==  false) {
+			try {
+				output = scanner.nextInt();
+				if (output > lower && output < upper)
+					correctInput = true;
+				else
+					System.out.println("Enter a number between " + lower + " and " + upper);
+				
+			} catch(Exception e) { // Error will display here
+				scanner.next(); // Flushes because  scanner.nextInt() never finishes
+				System.out.println("You must enter a whole number");
+			}
+		}
+		return output;
+	}
+	
 
 }
