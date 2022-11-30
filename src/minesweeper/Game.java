@@ -113,7 +113,7 @@ public class Game {
 		displayBoard(boardVisible);
 		// displayBoard(board); // Diagnostics
 		// System.out.println("");
-		displayBoard(boardEnd); // Diagnostics
+		// displayBoard(boardEnd); // Diagnostics
 	}
 
 	// Fill board with mines

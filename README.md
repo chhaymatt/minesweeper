@@ -6,11 +6,11 @@ Run Main.java in an IDE and play Minesweeper in the console
 
 ## Introduction
 
-Play Minesweeper in the console programmed in Java
+A recreated version of the game Minesweeper to be played in the console built using Java.
 
 ## Preview
 
-![Preview of Matthew Chhay's Minesweeper]()
+![Preview of Matthew Chhay's Minesweeper](https://i.imgur.com/56890Dc.png)
 
 ## MVP
 
@@ -27,4 +27,3 @@ Play Minesweeper in the console programmed in Java
 -   ✅ Added colours console output
 -   ⏰ A configuration.json file to configure number of mines and grid size
 -   ⏰ If a user selects an empty tile, surrounding empty tiles appear
--
